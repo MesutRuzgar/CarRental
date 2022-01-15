@@ -3,6 +3,7 @@ using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ConsoleUI
@@ -13,7 +14,7 @@ namespace ConsoleUI
         {
             //CarManagerTest();
 
-            //BrandManagerTest();
+            BrandManagerTest();
 
             //ColorManagerTest();
         }
@@ -34,6 +35,9 @@ namespace ConsoleUI
             {
                 Console.WriteLine(color.ColorName);
             }
+            Console.WriteLine("--------Renk Id'sine Göre------");
+            Color colorId =colorManager.GetById(1);
+            Console.WriteLine(colorId.ColorName);            
           
         }
 
@@ -53,7 +57,11 @@ namespace ConsoleUI
             {
                 Console.WriteLine(brand.BrandName);
             }
-                    }
+            Console.WriteLine("--------MARKA ID'SINE GORE----");
+            Brand marka = brandManager.GetById(1);
+            Console.WriteLine(marka.BrandId+ " / "+marka.BrandName);
+
+        }
 
         private static void CarManagerTest()
         {
