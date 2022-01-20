@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Entities.DTOs
 {
-   public class BrandDetailDto:IDto
+    public class UserForLoginDto : IDto
     {
-        public int BrandId { get; set; }
-        public string BrandName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -48,8 +48,8 @@ namespace ConsoleUI
                 FirstName = "ERkan",
                 LastName = "Erbai",
                 Email = "deneme2@deneme2.com",
-                Password = 1234567
-            });
+               
+            }); 
             
 
         }

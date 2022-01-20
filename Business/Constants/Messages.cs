@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Entities.Concrete;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -15,5 +17,15 @@ namespace Business.Constants
         public static string Succecss = "İşlem Başarılı";
         public static string MaintenanceTime = "Sistem Güncelleniyor.";
         public static string CarImageLimitExceeded = "Resim limiti doldu";
+        public static string AuthorizationDenied = "Yetkisiz işlem.";
+        public static string UserAdded = "Kullanıcı eklendi";
+        public static string UserDeleted = "Kullanıcı silindi";
+        public static string UserUpdated = "Kullanıcı güncellendi";
+        public static string UserRegistered = "Kullanıcı kayıt oldu";
+        public static string PasswordError = "Hatalı şifre";
+        public static string SuccessfulLogin = "Giriş başarılı";
+        public static string UserAlreadyExists = "Kullanıcı mevcut";
+        public static string AccessTokenCreated = "Erişim yetkisi verildi";
+        public static string UserNotFound = "Kullanıcı Bulunamadı";
     }
 }
