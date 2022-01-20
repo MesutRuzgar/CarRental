@@ -14,5 +14,6 @@ namespace Business.Constants
         public static string Listed = "Listeleme Başarılı";
         public static string Succecss = "İşlem Başarılı";
         public static string MaintenanceTime = "Sistem Güncelleniyor.";
-    };
+        public static string CarImageLimitExceeded = "Resim limiti doldu";
+    }
 }

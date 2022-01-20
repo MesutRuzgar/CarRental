@@ -34,6 +34,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 
+            builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
+            builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
+
             //bu kodun anlamı çalışan uygulama içerisinde implemente edilmiş
             //uygulamarı bul diyor, onlar için aspectintercepterı cağır diyor
             //bizim bütün sınıflarımız için önce ascpectınterceptor calıstırıyor
