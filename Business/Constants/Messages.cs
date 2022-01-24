@@ -27,5 +27,7 @@ namespace Business.Constants
         public static string UserAlreadyExists = "Kullanıcı mevcut";
         public static string AccessTokenCreated = "Erişim yetkisi verildi";
         public static string UserNotFound = "Kullanıcı Bulunamadı";
+        public static string CarNameMinLengt = "Araç ismi yetersiz";
+        public static string CarDailyPriceError = "Araç ücreti 0 olamaz";
     }
 }
