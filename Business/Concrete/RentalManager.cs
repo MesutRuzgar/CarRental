@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules;
+using Castle.Core.Internal;
 using Core.Aspects.Autofac;
 using Core.Results;
 using DataAccess.Abstract;
@@ -13,7 +14,7 @@ using System.Text;
 
 namespace Business.Concrete
 {
-  public  class RentalManager:IRentalService
+    public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
 
@@ -22,14 +23,14 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
-   
+
         public IResult Add(Rental rental)
         {
             List<RentalDetailDto> rentalDetail = _rentalDal.GetRentalDetails().Where(x => x.CarId == rental.CarId).ToList();
             bool isCarReturned = true;
             foreach (var item in rentalDetail)
             {
-                if (item.ReturnDate==null)
+                if (item.ReturnDate == null)
                 {
                     isCarReturned = false;
                 }
@@ -45,14 +46,56 @@ namespace Business.Concrete
             }
         }
 
+
         public IDataResult<List<Rental>> GetAll()
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(),Messages.Listed);
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.Listed);
+        }
+
+
+
+        public IDataResult<bool> GetCheckRentDate(int carId, DateTime rentDate, DateTime? returnDate)
+        {
+            List<DateTime> kullaniciTarihAraliklari = new List<DateTime>();
+            List<DateTime> dbTarihAraliklari = new List<DateTime>();
+            List<RentalDetailDto> rentalDetail = _rentalDal.GetCheckRentDate(carId, rentDate, returnDate);
+            bool varMi = false;
+            if (returnDate != null && returnDate > rentDate)
+            {
+                kullaniciTarihAraliklari = ikiTarihAralikHesaplama(returnDate, rentDate);
+            }
+            foreach (var item in rentalDetail)
+            {
+                if (item.ReturnDate != null && item.ReturnDate > item.RentDate)
+                {
+                    dbTarihAraliklari = ikiTarihAralikHesaplama(item.ReturnDate.Value.Date, item.RentDate.Date);
+                }
+            }
+            foreach (var item in kullaniciTarihAraliklari)
+            {
+                if (dbTarihAraliklari.Contains(item))
+                {
+                    varMi = true;
+                }
+            }
+            return new SuccessDataResult<bool>(varMi);
         }
 
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()
         {
-            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(),Messages.Listed);
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(), Messages.Listed);
+        }
+
+        private List<DateTime> ikiTarihAralikHesaplama(DateTime? returnDate, DateTime rentDate)
+        {
+            List<DateTime> kullaniciTarihAraliklari = new List<DateTime>();
+            TimeSpan ts = (System.DateTime)returnDate.Value.Date - rentDate.Date;
+
+            for (int i = 0; i < ts.Days; i++)
+            {
+                kullaniciTarihAraliklari.Add(rentDate.AddDays(i));
+            }
+            return kullaniciTarihAraliklari;
         }
     }
 }

@@ -50,6 +50,17 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getcheckrentdate")]
+        public IActionResult GetCheckRentDate(int carId,DateTime rentDate, DateTime returnDate)
+        {
+            var result = _rentalService.GetCheckRentDate(carId,rentDate,returnDate);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
 
     }
 }
