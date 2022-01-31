@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Core.Entites;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Entites.Concrete
+namespace Entities.DTOs
 {
-    public class CreditCard : IEntity
+    public class CreditCardDto:IDto
     {
-        public int Id { get; set; }        
+        public int Id { get; set; }
         public int UserId { get; set; }
+        public string UserName { get; set; }
         public string CardHolder { get; set; }
         public string CardNumber { get; set; }
         public string Cvv { get; set; }

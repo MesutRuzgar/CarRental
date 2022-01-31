@@ -3,10 +3,12 @@ using Business.Constants;
 using Core.Entites.Concrete;
 using Core.Results;
 using DataAccess.Abstract;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Business.Concrete
 {
@@ -36,25 +38,30 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CreditCard>>(_creditCardDal.GetAll(),Messages.Listed);
         }
 
-
-        public IResult GetCheckCreditCard(string cardHolder, string cardNumber, string cvv, string expirationMonth,string expirationYear)
+        public IDataResult<List<CreditCardDto>> GetCarDetails()
         {
-         
-            var result = _creditCardDal.GetAll().Any(c => c.CardHolder==cardHolder && c.CardNumber==cardNumber &&c.Cvv==cvv && c.ExpirationMonth == expirationMonth && c.ExpirationYear== expirationYear);            
-            if (result==true)
+            return new SuccessDataResult<List<CreditCardDto>>(_creditCardDal.GetCreditCardDetails(), Messages.Listed);
+        }
+
+        public IDataResult<bool> GetCheckCreditCard(string cardHolder, string cardNumber, string cvv, string expirationMonth,string expirationYear)
+        {
+            //Thread.Sleep(3000);
+            bool varMi = false;
+            var result = _creditCardDal.GetCreditCardDetails().Any(c => c.CardHolder==cardHolder && c.CardNumber==cardNumber &&c.Cvv==cvv && c.ExpirationMonth == expirationMonth && c.ExpirationYear== expirationYear);
+            if (result)
             {
-                return new SuccessResult(Messages.CreditCardValidateSuccess);
-            }
-            else
-            {
-                return new SuccessResult(Messages.CreditCardNotValidation);
-            }
+                varMi = true;
+                
+            }            
+                return new SuccessDataResult<bool>(varMi);
+            
            
-         }
+            
+        }
 
-        public IDataResult<List<CreditCard>> GetCreditCardByCustomerId(int customerId)
+        public IDataResult<List<CreditCard>> GetCreditCardByUserId(int userId)
         {
-            return new SuccessDataResult<List<CreditCard>>(_creditCardDal.GetAll(c=>c.CustomerId==customerId), Messages.Listed);
+            return new SuccessDataResult<List<CreditCard>>(_creditCardDal.GetAll(c=>c.UserId==userId), Messages.Listed);
         }
 
         public IResult Update(CreditCard creditCard)

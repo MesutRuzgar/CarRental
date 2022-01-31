@@ -60,9 +60,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbycustomerid")]
-        public IActionResult GetCreditCardByCustomerId(int customerId)
+        public IActionResult GetCreditCardByUserId(int userId)
         {
-            var result = _creditCardService.GetCreditCardByCustomerId(customerId);
+            var result = _creditCardService.GetCreditCardByUserId(userId);
             if (result.Success)
             {
                 return Ok(result);
