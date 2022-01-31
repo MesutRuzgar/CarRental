@@ -29,5 +29,7 @@ namespace Business.Constants
         public static string UserNotFound = "Kullanıcı Bulunamadı";
         public static string CarNameMinLengt = "Araç ismi yetersiz";
         public static string CarDailyPriceError = "Araç ücreti 0 olamaz";
+        public static string CreditCardNotValidation = "Kredi Kartı Doğrulama Hatası";
+        public static string CreditCardValidateSuccess = "Kredi Kartı Doğrulaması Başarılı";
     }
 }
