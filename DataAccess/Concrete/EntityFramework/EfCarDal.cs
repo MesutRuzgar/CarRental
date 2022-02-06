@@ -25,7 +25,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  CarId = c.Id,
                                  ColorId = c.ColorId,
                                  BrandId = c.BrandId,
-                                 CarName = c.CarName,
+                                 ModelName = c.ModelName,
                                  BrandName = b.BrandName,
                                  ColorName = k.ColorName,
                                  ModelYear = c.ModelYear,

@@ -9,7 +9,7 @@ namespace Business.Abstract
 {
     public interface ICreditCardService
     {
-        IDataResult<List<CreditCardDto>> GetCarDetails();
+        IDataResult<List<CreditCardDetailDto>> GetCarDetails();
         IDataResult<List<CreditCard>> GetAll();
         IDataResult<List<CreditCard>> GetCreditCardByUserId(int userId);
         IResult Add(CreditCard creditCard);

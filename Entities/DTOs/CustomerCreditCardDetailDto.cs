@@ -5,11 +5,12 @@ using System.Text;
 
 namespace Entities.DTOs
 {
-    public class CreditCardDetailDto:IDto
+   public class CustomerCreditCardDetailDto:IDto
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public string UserName { get; set; }
+        public int CustomerId { get; set; }
+        public string FristName { get; set; }
+        public string LastName { get; set; }
         public string CardHolder { get; set; }
         public string CardNumber { get; set; }
         public string Cvv { get; set; }

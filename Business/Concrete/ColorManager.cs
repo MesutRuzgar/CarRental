@@ -1,11 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Core.Results;
+using Core.Utilities.Business;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -21,6 +23,11 @@ namespace Business.Concrete
 
         public IResult Add(Color color)
         {
+            var rulesResult = BusinessRules.Run(CheckIfColorNameExist(color.ColorName));
+            if (rulesResult != null)
+            {
+                return rulesResult;
+            }
             _colorDal.Add(color);
             return new SuccessResult(Messages.Added);
         }
@@ -41,9 +48,35 @@ namespace Business.Concrete
             return new SuccessDataResult<Color>(_colorDal.Get(c => c.Id == colorId));
         }
         public IResult Update(Color color)
-        {            
+        {
+            var rulesResult = BusinessRules.Run(CheckIfColorNameExist(color.ColorName),
+                 CheckIfColorIdExist(color.Id));
+            if (rulesResult != null)
+            {
+                return rulesResult;
+            }
+
             _colorDal.Update(color);
             return new SuccessResult(Messages.Updated);
+        }
+
+        private IResult CheckIfColorNameExist(string colorName)
+        {
+            var result = _colorDal.GetAll().Any(c => c.ColorName == colorName);
+            if (result)
+            {
+                return new ErrorResult(Messages.ColorExist);
+            }
+            return new SuccessResult();
+        }
+        private IResult CheckIfColorIdExist(int colorId)
+        {
+            var result = _colorDal.GetAll().Any(c => c.Id == colorId);
+            if (!result)
+            {
+                return new ErrorResult(Messages.ColorNotExist);
+            }
+            return new SuccessResult();
         }
     }
 }

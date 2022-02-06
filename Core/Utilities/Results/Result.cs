@@ -19,5 +19,7 @@ namespace Core.Results
         public bool Success { get; }
 
         public string Message { get; }
+
+       
     }
 }

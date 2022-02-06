@@ -12,13 +12,13 @@ namespace DataAccess.Concrete.EntityFramework
     {
        
        
-        public List<CreditCardDto> GetCreditCardDetails()
+        public List<CreditCardDetailDto> GetCreditCardDetails()
         {
             using (CarRentalContext context = new CarRentalContext())
             {
                 var result = from cc in context.CreditCards
                              join u in context.Users on cc.UserId equals u.Id
-                             select new CreditCardDto
+                             select new CreditCardDetailDto
                              {
                                  Id = cc.Id,
                                  UserId = cc.UserId,

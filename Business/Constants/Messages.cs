@@ -21,15 +21,20 @@ namespace Business.Constants
         public static string UserAdded = "Kullanıcı eklendi";
         public static string UserDeleted = "Kullanıcı silindi";
         public static string UserUpdated = "Kullanıcı güncellendi";
-        public static string UserRegistered = "Kullanıcı kayıt oldu";
+        public static string UserRegistered = "Tebrikler! Kayıt olundu!";
         public static string PasswordError = "Hatalı şifre";
-        public static string SuccessfulLogin = "Giriş başarılı";
+        public static string SuccessfulLogin = "Giriş yapıldı";
         public static string UserAlreadyExists = "Kullanıcı mevcut";
-        public static string AccessTokenCreated = "Erişim yetkisi verildi";
+     
         public static string UserNotFound = "Kullanıcı Bulunamadı";
-        public static string CarNameMinLengt = "Araç ismi yetersiz";
+        public static string CarModelNameMinLengt = "Model ismi yetersiz";
         public static string CarDailyPriceError = "Araç ücreti 0 olamaz";
         public static string CreditCardNotValidation = "Kredi Kartı Doğrulama Hatası";
         public static string CreditCardValidateSuccess = "Kredi Kartı Doğrulaması Başarılı";
+        public static string BrandExist = "Marka mevcut!";
+        public static string BrandNotExist = "Marka mecvut değil!";
+        public static string ColorNotExist = "Renk mevcut değil!";
+        public static string ColorExist = "Renk mevcut!";
+        public static string CustomerCreditCardExist = "Kredi Kartı Kayıtlı!";
     }
 }

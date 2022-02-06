@@ -45,6 +45,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
+            builder.RegisterType<CustomerCreditCardManager>().As<ICustomerCreditCardService>().SingleInstance();
+            builder.RegisterType<EfCustomerCreditCardDal>().As<ICustomerCreditCardDal>().SingleInstance();
+
             builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
 
             //bu kodun anlamı çalışan uygulama içerisinde implemente edilmiş

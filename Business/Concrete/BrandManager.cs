@@ -1,11 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Core.Results;
+using Core.Utilities.Business;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -21,9 +23,15 @@ namespace Business.Concrete
 
         public IResult Add(Brand brand)
         {
-            
+            var rulesResult= BusinessRules.Run(CheckIfBrandNameExist(brand.BrandName));
+            if (rulesResult != null)
+            {
+                return rulesResult;
+            }
             _brandDal.Add(brand);
             return new SuccessResult(Messages.Added);
+
+
         }
 
         public IResult Delete(Brand brand)
@@ -41,12 +49,38 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.Id == brandId));
             
-        }
+        }         
 
         public IResult Update(Brand brand)
         {
+            var rulesResult = BusinessRules.Run(CheckIfBrandNameExist(brand.BrandName),
+                CheckIfBrandIdExist(brand.Id));
+            if (rulesResult != null)
+            {
+                return rulesResult;
+            }
+
             _brandDal.Update(brand);
             return new SuccessResult(Messages.Updated);
+        }
+
+        private IResult CheckIfBrandNameExist(string brandName)
+        {
+            var result = _brandDal.GetAll().Any(b => b.BrandName == brandName);
+            if (result)
+            {
+                return new ErrorResult(Messages.BrandExist);
+            }
+            return new SuccessResult();
+        }
+        private IResult CheckIfBrandIdExist(int brandId)
+        {
+            var result = _brandDal.GetAll().Any(b => b.Id == brandId);
+            if (!result)
+            {
+                return new ErrorResult(Messages.BrandNotExist);
+            }
+            return new SuccessResult();
         }
     }
 }

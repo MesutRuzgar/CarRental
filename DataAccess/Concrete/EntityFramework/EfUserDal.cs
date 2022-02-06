@@ -11,6 +11,13 @@ namespace DataAccess.Concrete.EntityFramework
 {
    public class EfUserDal:EfEntityRepositoryBase<User,CarRentalContext>, IUserDal
     {
+       
+        public User GetByMail(string email)
+        {
+            var result = GetByMail(email);
+            return result;
+        }
+
         public List<OperationClaim> GetClaims(User user)
         {
             using (var context = new CarRentalContext())

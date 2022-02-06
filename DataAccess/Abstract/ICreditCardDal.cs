@@ -9,6 +9,6 @@ namespace DataAccess.Abstract
 {
    public interface ICreditCardDal: IEntityRepository<CreditCard>
     {
-        public List<CreditCardDto> GetCreditCardDetails();
+        public List<CreditCardDetailDto> GetCreditCardDetails();
     }
 }

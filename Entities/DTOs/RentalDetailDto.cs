@@ -9,7 +9,7 @@ namespace Entities.DTOs
     {
         public int Id { get; set; }
         public int CarId { get; set; }
-        public string CarName { get; set; }
+        public string ModelName { get; set; }
         public string CustomerName { get; set; }
         public decimal DailyPrice { get; set; }
         public DateTime RentDate { get; set; }

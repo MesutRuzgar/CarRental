@@ -38,25 +38,23 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CreditCard>>(_creditCardDal.GetAll(),Messages.Listed);
         }
 
-        public IDataResult<List<CreditCardDto>> GetCarDetails()
+        public IDataResult<List<CreditCardDetailDto>> GetCarDetails()
         {
-            return new SuccessDataResult<List<CreditCardDto>>(_creditCardDal.GetCreditCardDetails(), Messages.Listed);
+            return new SuccessDataResult<List<CreditCardDetailDto>>(_creditCardDal.GetCreditCardDetails(), Messages.Listed);
         }
 
         public IDataResult<bool> GetCheckCreditCard(string cardHolder, string cardNumber, string cvv, string expirationMonth,string expirationYear)
         {
-            //Thread.Sleep(3000);
+            Thread.Sleep(5000);
+            string bigCardHolder = cardHolder.ToUpper();
             bool varMi = false;
-            var result = _creditCardDal.GetCreditCardDetails().Any(c => c.CardHolder==cardHolder && c.CardNumber==cardNumber &&c.Cvv==cvv && c.ExpirationMonth == expirationMonth && c.ExpirationYear== expirationYear);
+            var result = _creditCardDal.GetCreditCardDetails().Any(c => c.CardHolder==bigCardHolder && c.CardNumber==cardNumber &&c.Cvv==cvv && c.ExpirationMonth == expirationMonth && c.ExpirationYear== expirationYear);
             if (result)
             {
                 varMi = true;
                 
             }            
-                return new SuccessDataResult<bool>(varMi);
-            
-           
-            
+                return new SuccessDataResult<bool>(varMi);            
         }
 
         public IDataResult<List<CreditCard>> GetCreditCardByUserId(int userId)
