@@ -1,11 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Core.Results;
+using Core.Utilities.Business;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -48,8 +50,22 @@ namespace Business.Concrete
 
         public IResult Update(Customer customer)
         {
+            var rulesResult = BusinessRules.Run(CheckIfCompanyNameExist(customer.CompanyName));
+            if (rulesResult != null)
+            {
+                return rulesResult;
+            }
             _customerDal.Update(customer);
             return new SuccessResult(Messages.Updated);
+        }
+        private IResult CheckIfCompanyNameExist(string companyName)
+        {
+            var result = _customerDal.GetAll().Any(c => c.CompanyName == companyName);
+            if (result)
+            {
+                return new ErrorResult(Messages.CompanyExist);
+            }
+            return new SuccessResult();
         }
     }
 }

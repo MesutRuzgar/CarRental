@@ -62,6 +62,13 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CreditCard>>(_creditCardDal.GetAll(c=>c.UserId==userId), Messages.Listed);
         }
 
+        public IDataResult<CreditCard> GetUserFindeksScore(int userId)
+        {
+            var result = _creditCardDal.GetUserFindeksScore(userId);
+           
+            return new SuccessDataResult<CreditCard>(result);
+        }
+
         public IResult Update(CreditCard creditCard)
         {
             _creditCardDal.Update(creditCard);

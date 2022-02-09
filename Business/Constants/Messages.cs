@@ -36,5 +36,7 @@ namespace Business.Constants
         public static string ColorNotExist = "Renk mevcut değil!";
         public static string ColorExist = "Renk mevcut!";
         public static string CustomerCreditCardExist = "Kredi Kartı Kayıtlı!";
+        public static string CompanyExist = "Yeni Şirket İsmi Eskisiyle Aynı Olamaz";
+        public static string UserDetailExist = "Kullanıcı Bilgileriniz Eskisiyle Aynı Olamaz!";
     }
 }

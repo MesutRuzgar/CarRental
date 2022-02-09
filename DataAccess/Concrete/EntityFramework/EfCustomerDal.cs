@@ -20,7 +20,9 @@ namespace DataAccess.Concrete.EntityFramework
                              select new CustomerDetailDto
                              {
                                  Id=c.Id,
-                                 UserName = u.FirstName +" "+ u.LastName,
+                                 UserFirstName = u.FirstName,
+                                 UserLastName= u.LastName,
+                                 UserEmail=u.Email,
                                  CompanyName = c.CompanyName
                              };
                 return result.ToList();

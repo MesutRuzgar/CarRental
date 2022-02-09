@@ -31,6 +31,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  ModelYear = c.ModelYear,
                                  DailyPrice = c.DailyPrice,
                                  Description = c.Description,
+                                 FindeksScore=c.FindeksScore,
                                  CarImage = (from i in context.CarImages
                                              where (c.Id == i.CarId)
                                              select new CarImage { Id = i.Id, CarId = c.Id, Date = i.Date, ImagePath = i.ImagePath }).ToList()

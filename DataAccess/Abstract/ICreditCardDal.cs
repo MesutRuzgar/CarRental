@@ -10,5 +10,6 @@ namespace DataAccess.Abstract
    public interface ICreditCardDal: IEntityRepository<CreditCard>
     {
         public List<CreditCardDetailDto> GetCreditCardDetails();
+        public CreditCard GetUserFindeksScore(int userId);
     }
 }

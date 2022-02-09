@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -27,8 +28,9 @@ namespace DataAccess.Concrete.EntityFramework
                 return result.ToList();
             }
         }
+        
 
-        public List<RentalDetailDto> GetRentalDetails()
+        public List<RentalDetailDto> GetRentalDetails(Expression<Func<RentalDetailDto, bool>> filter = null)
         {
             using (CarRentalContext context = new CarRentalContext())
             {
@@ -40,15 +42,23 @@ namespace DataAccess.Concrete.EntityFramework
                              select new RentalDetailDto
                              {
                                  Id = r.Id,
-                                 ModelName = b.BrandName + " " + c.ModelName,
+                                 CustomerId=cus.Id,
+                                 UserId=u.Id,
+                                 ModelName = c.ModelName,
+                                 BrandName=b.BrandName,
                                  CustomerName = u.FirstName + " " + u.LastName,
-                                 DailyPrice = c.DailyPrice,
+                                 TotalAmount = r.TotalAmount,
                                  RentDate = r.RentDate,
                                  ReturnDate = r.ReturnDate,
-                                 CarId = c.Id
+                                 CarId = c.Id,
+                                 CarImage = (from i in context.CarImages
+                                             where (c.Id == i.CarId)
+                                             select new CarImage { Id = i.Id, CarId = c.Id, Date = i.Date, ImagePath = i.ImagePath }).ToList()
                              };
-                return result.ToList();
+                return filter is null ? result.ToList() : result.Where(filter).ToList();
             }
         }
+       
+
     }
 }

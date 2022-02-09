@@ -27,11 +27,28 @@ namespace DataAccess.Concrete.EntityFramework
                                  CardNumber = cc.CardNumber,
                                  Cvv = cc.Cvv,
                                  ExpirationMonth = cc.ExpirationMonth,
-                                 ExpirationYear = cc.ExpirationYear
+                                 ExpirationYear = cc.ExpirationYear,
+                                 FindeksScore=cc.FindeksScore
                              };
                 return result.ToList();
             }
 
+        }
+        public CreditCard GetUserFindeksScore(int userId)
+        {
+            using (CarRentalContext context = new CarRentalContext())
+            {
+                var result = from cc in context.CreditCards
+                            
+                             where (cc.UserId == userId)
+                             select new CreditCard
+                             {   
+                                 Id=cc.Id,
+                                 UserId=cc.UserId,
+                                 FindeksScore=cc.FindeksScore
+                             };
+                return result.SingleOrDefault();
+            }
         }
     }
 }

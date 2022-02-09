@@ -2,9 +2,11 @@
 using Business.Constants;
 using Core.Entites.Concrete;
 using Core.Results;
+using Core.Utilities.Business;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Concrete
 {
@@ -52,9 +54,23 @@ namespace Business.Concrete
 
         public IResult Update(User user)
         {
+            var rulesResult = BusinessRules.Run(CheckIfUserDetailExist(user.Email,user.FirstName,user.LastName));
+            if (rulesResult != null)
+            {
+                return rulesResult;
+            }
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }
-        
+        private IResult CheckIfUserDetailExist(string email,string firstName,string LastName )
+        {
+            var result = _userDal.GetAll().Any(u=> u.Email==email && u.FirstName==firstName && u.LastName==LastName);
+            if (result)
+            {
+                return new ErrorResult(Messages.UserDetailExist);
+            }
+            return new SuccessResult();
+        }
+
     }
 }

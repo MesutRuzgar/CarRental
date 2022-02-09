@@ -12,6 +12,7 @@ namespace Business.Abstract
         IDataResult<List<CreditCardDetailDto>> GetCarDetails();
         IDataResult<List<CreditCard>> GetAll();
         IDataResult<List<CreditCard>> GetCreditCardByUserId(int userId);
+        IDataResult<CreditCard> GetUserFindeksScore(int userId);
         IResult Add(CreditCard creditCard);
         IResult Update(CreditCard creditCard);
         IResult Delete(CreditCard creditCard);

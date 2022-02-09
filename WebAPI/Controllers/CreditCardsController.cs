@@ -81,5 +81,15 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getuserfindeks")]
+        public IActionResult GetUserFindeksScore(int userId)
+        {
+            var result = _creditCardService.GetUserFindeksScore(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

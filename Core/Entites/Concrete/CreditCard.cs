@@ -13,5 +13,6 @@ namespace Core.Entites.Concrete
         public string Cvv { get; set; }
         public string ExpirationMonth { get; set; }
         public string ExpirationYear { get; set; }
+        public string FindeksScore { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace Entities.DTOs
         public int ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }
+        public decimal FindeksScore { get; set; }
         public List<CarImage> CarImage { get; set; }
     }
 }
