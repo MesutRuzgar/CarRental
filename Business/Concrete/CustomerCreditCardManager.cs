@@ -35,7 +35,8 @@ namespace Business.Concrete
 
         public IResult SaveCustomerCreditCard(CustomerCreditCard customerCreditCard)
         {
-            var rulesResult = BusinessRules.Run(CheckIfCustomerCreditCardExist(customerCreditCard.CardNumber));
+
+            var rulesResult = BusinessRules.Run(CheckIfCustomerCreditCardExist(customerCreditCard.CustomerId,customerCreditCard.CardNumber));
             if (rulesResult != null)
             {
                 return rulesResult;
@@ -43,7 +44,7 @@ namespace Business.Concrete
             var saveCustomerCreditCard = new CustomerCreditCard
             {
                 CustomerId = customerCreditCard.CustomerId,
-                CardHolder = customerCreditCard.CardHolder,
+                CardHolder = customerCreditCard.CardHolder.ToUpper(),
                 CardNumber = customerCreditCard.CardNumber,
                 Cvv = customerCreditCard.Cvv,
                 ExpirationMonth = customerCreditCard.ExpirationMonth,
@@ -53,9 +54,11 @@ namespace Business.Concrete
             return new SuccessResult("Kredi Kartınız Başarıyla Kaydedildi.");
 
         }
-        private IResult CheckIfCustomerCreditCardExist(string CardNumber)
+
+
+        private IResult CheckIfCustomerCreditCardExist(int customerId,string CardNumber)
         {
-            var result = _customerCreditCardDal.GetAll().Any(ccc => ccc.CardNumber == CardNumber);
+            var result = _customerCreditCardDal.GetAll().Any(ccc =>ccc.CustomerId==customerId && ccc.CardNumber == CardNumber);
             if (result)
             {
                 return new ErrorResult(Messages.CustomerCreditCardExist);

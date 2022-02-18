@@ -91,6 +91,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(c=>c.UserId== userId));
         }
 
+        
+
         private List<DateTime> ikiTarihAralikHesaplama(DateTime? returnDate, DateTime rentDate)
         {
             List<DateTime> kullaniciTarihAraliklari = new List<DateTime>();

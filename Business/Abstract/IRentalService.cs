@@ -11,6 +11,7 @@ namespace Business.Abstract
     {
         IResult Add(Rental rental);
         IDataResult<List<Rental>> GetAll();
+
         IDataResult<List<RentalDetailDto>> GetRentalDetails();
         IDataResult<List<RentalDetailDto>> GetRentalUserDetails(int userId);
         IDataResult<bool> GetCheckRentDate(int carId, DateTime rentDate, DateTime? returnDate);

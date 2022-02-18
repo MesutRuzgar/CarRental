@@ -16,6 +16,7 @@ namespace Entities.DTOs
         public string BrandName { get; set; }
         public string CustomerName { get; set; }
         public decimal TotalAmount { get; set; }
+        public decimal DailyPrice { get; set; }
         public List<CarImage> CarImage { get; set; }
         public DateTime RentDate { get; set; }
         public DateTime? ReturnDate { get; set; }

@@ -29,7 +29,7 @@ namespace Business.Concrete
 
         [PerformanceAspect(10)]
         [CacheRemoveAspect("ICarService.Get")]
-       // [SecuredOperation("car.add")]
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
@@ -51,6 +51,7 @@ namespace Business.Concrete
             return null;
         }
 
+        [SecuredOperation("admin")]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)
         {
@@ -58,10 +59,11 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Deleted);
 
         }
+
         [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour == 13)
+            if (DateTime.Now.Hour == 00)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
@@ -86,6 +88,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorId == colorId));
         }
 
+        [SecuredOperation("admin")]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {

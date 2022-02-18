@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
+using Core.Aspects.Autofac.Caching;
 using Core.Results;
 using Core.Utilities.Business;
 using DataAccess.Abstract;
@@ -21,6 +23,7 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
+        [SecuredOperation("admin")]
         public IResult Add(Color color)
         {
             var rulesResult = BusinessRules.Run(CheckIfColorNameExist(color.ColorName));
@@ -32,21 +35,26 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Added);
         }
 
+        [SecuredOperation("admin")]
         public IResult Delete(Color color)
         {            
             _colorDal.Delete(color);
             return new SuccessResult(Messages.Deleted);
         }
 
+        [CacheRemoveAspect("IColorService.GetAll")]
         public IDataResult<List<Color>> GetAll()
         {
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll(),Messages.Listed);
         }
 
+        [CacheRemoveAspect("IColorService.Get")]
         public IDataResult<Color> GetById(int colorId)
         {
             return new SuccessDataResult<Color>(_colorDal.Get(c => c.Id == colorId));
         }
+
+        [SecuredOperation("admin")]
         public IResult Update(Color color)
         {
             var rulesResult = BusinessRules.Run(CheckIfColorNameExist(color.ColorName),
