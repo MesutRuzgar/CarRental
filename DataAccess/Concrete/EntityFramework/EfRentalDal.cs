@@ -28,7 +28,7 @@ namespace DataAccess.Concrete.EntityFramework
                 return result.ToList();
             }
         }
-        
+
 
         public List<RentalDetailDto> GetRentalDetails(Expression<Func<RentalDetailDto, bool>> filter = null)
         {
@@ -38,20 +38,21 @@ namespace DataAccess.Concrete.EntityFramework
                              join c in context.Cars on r.CarId equals c.Id
                              join cus in context.Customers on r.CustomerId equals cus.Id
                              join b in context.Brands on c.BrandId equals b.Id
-                             join u in context.Users on cus.UserId equals u.Id                            
+                             join u in context.Users on cus.UserId equals u.Id
                              select new RentalDetailDto
                              {
                                  Id = r.Id,
-                                 CustomerId=cus.Id,
-                                 UserId=u.Id,
+                                 CustomerId = cus.Id,
+                                 UserId = u.Id,
                                  ModelName = c.ModelName,
-                                 BrandName=b.BrandName,
+                                 BrandName = b.BrandName,
                                  CustomerName = u.FirstName + " " + u.LastName,
                                  TotalAmount = r.TotalAmount,
                                  RentDate = r.RentDate,
                                  ReturnDate = r.ReturnDate,
                                  CarId = c.Id,
-                                 DailyPrice=c.DailyPrice,
+                                 //TotalEarnings = (from ucret in context.Rentals select ucret.TotalAmount).Sum(),
+                                 DailyPrice = c.DailyPrice,
                                  CarImage = (from i in context.CarImages
                                              where (c.Id == i.CarId)
                                              select new CarImage { Id = i.Id, CarId = c.Id, Date = i.Date, ImagePath = i.ImagePath }).ToList()
@@ -59,6 +60,15 @@ namespace DataAccess.Concrete.EntityFramework
                 return filter is null ? result.ToList() : result.Where(filter).ToList();
             }
         }
-            
+
+        public decimal TotalEarnings()
+        {
+            using (CarRentalContext context = new CarRentalContext())
+            {
+                var result = (from r in context.Rentals select r.TotalAmount).Sum();
+                return result;
+            }
+
+        }
     }
 }

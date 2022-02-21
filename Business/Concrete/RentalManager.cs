@@ -50,6 +50,8 @@ namespace Business.Concrete
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.Listed);
+          
+
         }
 
 
@@ -91,7 +93,12 @@ namespace Business.Concrete
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(c=>c.UserId== userId));
         }
 
-        
+        public IDataResult<decimal> TotalEarnings()
+        {
+          
+
+            return new SuccessDataResult<decimal>(_rentalDal.TotalEarnings());
+        }
 
         private List<DateTime> ikiTarihAralikHesaplama(DateTime? returnDate, DateTime rentDate)
         {

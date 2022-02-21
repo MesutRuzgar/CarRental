@@ -13,6 +13,6 @@ namespace DataAccess.Abstract
         List<RentalDetailDto> GetRentalDetails(Expression<Func<RentalDetailDto, bool>> filter = null);
         List<RentalDetailDto> GetCheckRentDate(int carId, DateTime rentDate, DateTime? returnDate);
 
-
+        decimal TotalEarnings();
     }
 }

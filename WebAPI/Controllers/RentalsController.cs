@@ -70,7 +70,16 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-
+        [HttpGet("gettotalamount")]
+        public IActionResult TotalEarnings()
+        {
+            var result = _rentalService.TotalEarnings();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
     }
 }
